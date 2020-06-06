@@ -1,0 +1,5 @@
+---
+
+cni_plugins_version: "v0.8.6"
+
+cni_pod_cidr: ""

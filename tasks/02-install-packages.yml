@@ -1,0 +1,49 @@
+---
+
+- name: "02.1 - download cni plugins archive"
+  get_url:
+    url: "{{ __cni_download_url }}"
+    dest: "{{ __cni_play_dir }}/cni-{{ cni_version }}.tgz"
+  become: yes
+  register: _cni_archive_download
+
+- name: "02.2.1 - make sure directory for unpacked files is created"
+  file:
+    path: "{{ __cni_play_dir }}/cni-{{ cni_version }}"
+    state: directory
+  become: yes
+
+- name: "02.2.2 - unpack archive"
+  shell:
+    cmd: "tar -xzf {{ __cni_play_dir }}/cni-{{ cni_version }}.tgz -C {{ __cni_play_dir }}/cni-{{ cni_version }} --strip-components=1"
+  args:
+    warn: no
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  become: yes
+  when:
+    - _cni_archive_download is defined and
+      _cni_archive_download is changed
+
+- name: "02.3.1 - find all unpacked cni plugin binaries"
+  find:
+    paths:
+      - "{{ __cni_play_dir }}/cni-{{ cni_version }}"
+    recurse: no
+    hidden: yes
+    patterns: "*"
+    use_regex: no
+    file_type: file
+  register: _cni_binaries
+  become: yes
+
+- name: "02.3.2 - copy cni plugin binaries to the installation directory"
+  copy:
+    src: "{{ item.path }}"
+    dest: "{{ __cni_install_dir }}/{{ item.path|basename }}"
+    remote_src: yes
+    mode: "0755"
+  become: yes
+  loop_control:
+    label: "{{ item.path }}"
+  loop: "{{ _cni_binaries.files|flatten(1) }}"
