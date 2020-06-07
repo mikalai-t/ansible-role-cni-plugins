@@ -3,19 +3,19 @@
 - name: "02.1 - download cni plugins archive"
   get_url:
     url: "{{ __cni_download_url }}"
-    dest: "{{ __cni_play_dir }}/cni-{{ cni_version }}.tgz"
+    dest: "{{ __cni_play_dir }}/cni-{{ cni_plugins_version }}.tgz"
   become: yes
   register: _cni_archive_download
 
 - name: "02.2.1 - make sure directory for unpacked files is created"
   file:
-    path: "{{ __cni_play_dir }}/cni-{{ cni_version }}"
+    path: "{{ __cni_play_dir }}/cni-{{ cni_plugins_version }}"
     state: directory
   become: yes
 
 - name: "02.2.2 - unpack archive"
   shell:
-    cmd: "tar -xzf {{ __cni_play_dir }}/cni-{{ cni_version }}.tgz -C {{ __cni_play_dir }}/cni-{{ cni_version }} --strip-components=1"
+    cmd: "tar -xzf {{ __cni_play_dir }}/cni-{{ cni_plugins_version }}.tgz -C {{ __cni_play_dir }}/cni-{{ cni_plugins_version }} --strip-components=1"
   args:
     warn: no
   environment:
@@ -28,7 +28,7 @@
 - name: "02.3.1 - find all unpacked cni plugin binaries"
   find:
     paths:
-      - "{{ __cni_play_dir }}/cni-{{ cni_version }}"
+      - "{{ __cni_play_dir }}/cni-{{ cni_plugins_version }}"
     recurse: no
     hidden: yes
     patterns: "*"

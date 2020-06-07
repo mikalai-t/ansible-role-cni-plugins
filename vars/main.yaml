@@ -2,7 +2,7 @@
 
 __cni_play_dir: /node-init
 
-__cni_download_url: "https://github.com/containernetworking/plugins/releases/download/{{ cni_version }}/cni-plugins-linux-amd64-{{ cni_version }}.tgz"
+__cni_download_url: "https://github.com/containernetworking/plugins/releases/download/{{ cni_plugins_version }}/cni-plugins-linux-amd64-{{ cni_plugins_version }}.tgz"
 
 __cni_install_dir: /opt/cni/bin
 
