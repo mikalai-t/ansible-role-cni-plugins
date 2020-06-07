@@ -6,4 +6,4 @@ __cni_download_url: "https://github.com/containernetworking/plugins/releases/dow
 
 __cni_install_dir: /opt/cni/bin
 
-__cin_config_dir: /etc/cni/net.d
+__cni_config_dir: /etc/cni/net.d
