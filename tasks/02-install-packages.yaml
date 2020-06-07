@@ -45,5 +45,5 @@
     mode: "0755"
   become: yes
   loop_control:
-    label: "{{ item.path }}"
+    label: "{{ item.path|basename }}"
   loop: "{{ _cni_binaries.files|flatten(1) }}"

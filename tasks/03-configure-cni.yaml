@@ -3,7 +3,7 @@
 - name: "03.1 - template cni bridge and loopback configs"
   template:
     src: "{{ item }}"
-    dest: "{{ __cin_config_dir }}/{{ item }}"
+    dest: "{{ __cni_config_dir }}/{{ item }}"
   become: yes
   loop:
     - 10-bridge.conf
