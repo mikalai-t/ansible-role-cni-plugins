@@ -2,4 +2,4 @@
 
 cni_plugins_version: "v0.8.6"
 
-cni_pod_cidr: ""
+cni_pod_cidr: "10.200.0.0/16"

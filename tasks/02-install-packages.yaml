@@ -41,6 +41,7 @@
   copy:
     src: "{{ item.path }}"
     dest: "{{ __cni_install_dir }}/{{ item.path|basename }}"
+    force: yes
     remote_src: yes
     mode: "0755"
   become: yes
